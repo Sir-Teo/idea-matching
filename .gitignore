@@ -23,7 +23,12 @@ results/
 *.parquet
 *.feather
 *.tsv
-*.txt
+# Exclude data .txt files but allow requirements.txt and documentation
+data/*.txt
+datasets/*.txt
+input/*.txt
+output/*.txt
+results/*.txt
 *.dat
 
 # Database files
