@@ -1,0 +1,84 @@
+# Data directories
+data/
+datasets/
+input/
+output/
+results/
+
+# Excel files
+*.xlsx
+*.xls
+*.xlsm
+
+# CSV files
+*.csv
+
+# Other data formats
+*.json
+*.jsonl
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.parquet
+*.feather
+*.tsv
+*.txt
+*.dat
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Log files
+*.log
+
+# Cache and temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.DS_Store
+Thumbs.db
+
+# Model files and weights
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.safetensors
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.venv/
+venv/
+env/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db 
