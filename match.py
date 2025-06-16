@@ -236,11 +236,11 @@ try:
     mem_sheet_match = find_best_sheet_match(args.mem_sheet, available_sheets)
     
     if not conv_sheet_match:
-        available_sheet_list = ", ".join(available_sheets)
+        available_sheet_list = ", ".join(str(sheet) for sheet in available_sheets)
         sys.exit(f"Conversation sheet '{args.conv_sheet}' not found. Available sheets: {available_sheet_list}")
     
     if not mem_sheet_match:
-        available_sheet_list = ", ".join(available_sheets)
+        available_sheet_list = ", ".join(str(sheet) for sheet in available_sheets)
         sys.exit(f"Memory sheet '{args.mem_sheet}' not found. Available sheets: {available_sheet_list}")
     
     # Inform user if we're using different sheet names

@@ -13,6 +13,8 @@ This project implements an automated approach to align memory idea-units with co
 - **Robust Column Matching**: Automatically handles variations in column names (plural/singular, spacing)
 - **Comprehensive Analysis**: Provides overlap analysis, accuracy metrics, and detailed statistics
 - **Excel Integration**: Reads directly from Excel workbooks with multiple sheets
+- **Batch Processing**: Process multiple corrected files automatically with `batch_process_corrected.py`
+- **Model Comparison**: Compare different Cross-Encoder models with `compare_models.py`
 
 ## Requirements
 
@@ -22,7 +24,7 @@ pip install pandas sentence-transformers tqdm scikit-learn openpyxl
 
 ## Usage
 
-### Basic Usage
+### Single File Processing
 
 ```bash
 python match.py \
@@ -34,8 +36,30 @@ python match.py \
     --mem_window 2
 ```
 
+### Batch Processing for Corrected Files
+
+For processing multiple corrected files in `data/cleaned_corrections/`:
+
+```bash
+python batch_process_corrected.py \
+    --model cross-encoder/stsb-distilroberta-base \
+    --conv_window 0 \
+    --mem_window 0 \
+    --data_dir data/cleaned_corrections \
+    --output_dir results_corrected
+```
+
+### Model Comparison
+
+To compare multiple Cross-Encoder models across all files:
+
+```bash
+python compare_models.py
+```
+
 ### Parameters
 
+#### Single File Processing (`match.py`)
 - `--workbook`: Path to Excel workbook containing conversation and memory sheets
 - `--conv_sheet`: Sheet name with conversation idea-units
 - `--mem_sheet`: Sheet name with memory idea-units  
@@ -45,7 +69,17 @@ python match.py \
 - `--manual_col`: Column name for manual coding (default: "matching idea unit")
 - `--top_k`: Number of top matches to consider (default: 3)
 
+#### Batch Processing (`batch_process_corrected.py`)
+- `--model`: HuggingFace Cross-Encoder model (default: `cross-encoder/stsb-distilroberta-base`)
+- `--conv_window`: Context window size for conversation units (default: 0)
+- `--mem_window`: Context window size for memory units (default: 0)
+- `--top_k`: Number of top matches to consider (default: 3)
+- `--data_dir`: Directory containing corrected files (default: `data/cleaned_corrections`)
+- `--output_dir`: Directory to save results (default: `results_corrected`)
+
 ### Required Excel Columns
+
+#### Original Format (for `match.py`)
 
 **Conversation Sheet:**
 - `Transcript`: The conversation text/idea units
@@ -55,6 +89,14 @@ python match.py \
 - `Transcript`: The memory text/idea units  
 - `idea unit #`: Unique identifier for each memory unit
 - `matching idea unit` (or specify with `--manual_col`): Manual coding reference
+
+#### Corrected Format (for `batch_process_corrected.py`)
+
+**Both Conversation and Memory Files:**
+- `Subject Pair`: Subject identifier
+- `Original Turn`: Turn number from original conversation
+- `Idea Unit #`: Unique identifier for each idea unit
+- `Transcript`: The processed idea unit text
 
 ## Output
 
@@ -84,6 +126,25 @@ The script supports any Cross-Encoder model from HuggingFace. Recommended models
 - **Score Statistics**: Mean, median, min, max similarity scores
 - **Word Overlap Analysis**: Most frequent overlapping words across all comparisons
 - **Jaccard Similarity**: Token-level similarity between memory and conversation windows
+
+## Project Structure
+
+```
+idea_matching/
+├── match.py                     # Single file processing script
+├── batch_process_corrected.py   # Batch processing for corrected files
+├── compare_models.py           # Model comparison script
+├── generate_ideas_pipeline.ipynb # Jupyter notebook for idea extraction
+├── requirements.txt            # Python dependencies
+├── README.md                   # This file
+├── data/                       # Data directory (excluded from git)
+│   ├── cleaned_corrections/    # Corrected/preprocessed files
+│   └── *.xlsx                 # Original Excel files
+└── results_corrected/         # Results directory (excluded from git)
+    ├── batch_processing_summary.csv
+    ├── all_detailed_results.csv
+    └── result_*.csv           # Individual result files
+```
 
 ## Data Privacy
 

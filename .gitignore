@@ -4,6 +4,7 @@ datasets/
 input/
 output/
 results/
+results_corrected/
 
 # Excel files
 *.xlsx
